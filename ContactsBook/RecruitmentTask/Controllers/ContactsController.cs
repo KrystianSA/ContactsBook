@@ -43,7 +43,7 @@ namespace RecruitmentTask.Controllers
             { 
                 return NotFound();
             }
-            return Ok(contact);
+            return Ok();
         }
 
         [HttpDelete]
@@ -66,7 +66,7 @@ namespace RecruitmentTask.Controllers
             try
             {
                 var newUser = _contactsService.Add(contact);
-                return Ok(newUser);
+                return Ok();
             }
             catch (Exception ex)
             {

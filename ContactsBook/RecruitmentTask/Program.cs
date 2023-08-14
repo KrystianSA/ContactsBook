@@ -2,7 +2,6 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using RecruitmentTask;
 using RecruitmentTask.Data;
@@ -16,7 +15,7 @@ using WebApp.Models.Validators;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<DataDbContext>(options => 
-    options.UseSqlServer("Data Source=LAPTOP-FGS0SEO7\\SQLEXPRESS01;encrypt=false;Initial Catalog=WebApp;Integrated Security=True"));
+    options.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
 
 
 builder.Services.AddControllers().AddFluentValidation();
@@ -26,7 +25,7 @@ builder.Services.AddScoped<DataProviders>();
 builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<IAccountService,AccountService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
-builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
+builder.Services.AddAutoMapper(typeof(ContactsMappingProfile).Assembly);
 builder.Services.AddScoped<IValidator<RegisterUser>, RegisterUserValidator>();
 builder.Services.AddCors(options =>
 {

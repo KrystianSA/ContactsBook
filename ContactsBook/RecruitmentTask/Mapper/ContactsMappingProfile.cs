@@ -4,9 +4,9 @@ using RecruitmentTask.Models;
 
 namespace RecruitmentTask.Mapper
 {
-    public class MapperProfile : Profile
+    public class ContactsMappingProfile : Profile
     {
-        public MapperProfile()
+        public ContactsMappingProfile()
         {
         }
     }

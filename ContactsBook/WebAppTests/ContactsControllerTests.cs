@@ -1,17 +1,11 @@
 ﻿using FluentAssertions;
-using FluentAssertions.Execution;
 using Microsoft.AspNetCore.Authorization.Policy;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
-using Moq;
 using RecruitmentTask.Data;
 using RecruitmentTask.Entities;
-using RecruitmentTask.Models;
-using RecruitmentTask.Services;
-using System.ComponentModel.DataAnnotations;
 using WebAppTests.Extensions;
 using Xunit;
-using Xunit.Sdk;
 
 namespace ContactsBook.IntegrationTests
 {
@@ -37,21 +31,6 @@ namespace ContactsBook.IntegrationTests
 
             _client=_factory.CreateClient();
 
-        }
-
-        private void Seeder(Contact contact)
-        {
-            var scopeFactory = _factory.Services.GetService<IServiceScopeFactory>();
-
-            using var scope = scopeFactory.CreateScope();
-
-            var _dbContext = scope.ServiceProvider.GetService<DataDbContext>();
-
-            if (_dbContext.Contacts.SingleOrDefault(x => x.Id == contact.Id) == null)
-            {
-                _dbContext.Contacts.Add(contact);
-                _dbContext.SaveChanges();
-            }
         }
 
         [Fact]
@@ -89,7 +68,7 @@ namespace ContactsBook.IntegrationTests
                 PhoneNumber = 1232323,
                 CategoryId = 1
             };
-            var result = await _client.DeleteAsync("/api/contacts/" + contact.Id);
+            var result = await _client.DeleteAsync("/api/contacts/1");
             result.StatusCode.Should().Be(System.Net.HttpStatusCode.NoContent);
         }
 
@@ -106,6 +85,25 @@ namespace ContactsBook.IntegrationTests
             };
             var httpContent = contact.ToJsonHttpContent();
             var result = await _client.PostAsync("/api/contacts/", httpContent);
+            result.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+        }
+
+        [Fact]
+        public async Task UpdateContact_ForValidModel_ReturnStatusOk()
+        {
+            var contact = new Contact()
+            {
+                Id = 2,
+                Name = "Krystian",
+                Surname = "Sąsiadek",
+                Email = "test1@test.com",
+                PhoneNumber = 1232323,
+                CategoryId = 1
+            };
+
+            contact.Name = "Paweł";
+            var httpContent = contact.ToJsonHttpContent();
+            var result = await _client.PutAsync("api/contacts/2",httpContent);
             result.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
     }

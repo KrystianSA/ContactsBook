@@ -46,9 +46,9 @@ namespace RecruitmentTask.Data
         {
             var category = new Category[]
             {
-               new Category{Name="Służbowy"},    
-               new Category{Name="Prywatny"},
-               new Category{Name="Inny"}
+               new Category{CategoryId=1,Name="Służbowy"},    
+               new Category{CategoryId=2,Name="Prywatny"},
+               new Category{CategoryId=3,Name="Inny"}
             };
 
             return category;
