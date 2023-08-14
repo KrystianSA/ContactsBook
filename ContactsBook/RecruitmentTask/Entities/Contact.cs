@@ -21,6 +21,6 @@ namespace RecruitmentTask.Entities
         
         [Required]
         [Range(1, 3, ErrorMessage = "CategoryId musi być wartością między 1 a 3.")]
-        public int CategoryId { get; set; }
+        public Category CategoryId { get; set; }
     }
 }

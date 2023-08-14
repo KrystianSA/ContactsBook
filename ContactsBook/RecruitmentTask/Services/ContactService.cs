@@ -1,12 +1,6 @@
 ﻿using AutoMapper;
-using Azure.Messaging;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.OpenApi.Validations;
 using RecruitmentTask.Data;
 using RecruitmentTask.Entities;
-using RecruitmentTask.Models;
 
 namespace RecruitmentTask.Services
 {

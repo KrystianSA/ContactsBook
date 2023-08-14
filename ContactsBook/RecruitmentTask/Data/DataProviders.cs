@@ -15,10 +15,10 @@ namespace RecruitmentTask.Data
         {
             if (_dbContext.Database.CanConnect())
             {
-                if (!_dbContext.Categories.Any())
+                if (!_dbContext.Category.Any())
                 {
                     var categories = CreateNewCategories();
-                    _dbContext.Categories.AddRange(categories);
+                    _dbContext.Category.AddRange(categories);
                     _dbContext.SaveChanges();
                 }
                 if (!_dbContext.Contacts.Any())
@@ -34,9 +34,9 @@ namespace RecruitmentTask.Data
         {
             var contacts = new Contact[]
             {
-               new Contact{Name="Jan", Surname="Kowalski", Email="Jan.Kowalski@gmail.com",PhoneNumber = 123456789,CategoryId=1},
-               new Contact{Name="Adam", Surname="Nowak", Email="Adam.Nowak@gmail.com", PhoneNumber = 123456789,CategoryId=2},
-               new Contact{Name="Anna", Surname="Kowalska", Email="Anna.Kowalska@gmail.com",PhoneNumber = 123456789,CategoryId=3},
+               new Contact{Name="Jan", Surname="Kowalski", Email="Jan.Kowalski@gmail.com",PhoneNumber = 123456789},
+               new Contact{Name="Adam", Surname="Nowak", Email="Adam.Nowak@gmail.com", PhoneNumber = 123456789},
+               new Contact{Name="Anna", Surname="Kowalska", Email="Anna.Kowalska@gmail.com",PhoneNumber = 123456789},
             };
 
             return contacts;
