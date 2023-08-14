@@ -34,9 +34,9 @@ namespace RecruitmentTask.Data
         {
             var contacts = new Contact[]
             {
-               new Contact{Name="Jan", Surname="Kowalski", Email="Jan.Kowalski@gmail.com",PhoneNumber = 123456789},
-               new Contact{Name="Adam", Surname="Nowak", Email="Adam.Nowak@gmail.com", PhoneNumber = 123456789},
-               new Contact{Name="Anna", Surname="Kowalska", Email="Anna.Kowalska@gmail.com",PhoneNumber = 123456789},
+               new Contact{Name="Jan", Surname="Kowalski", Email="Jan.Kowalski@gmail.com",PhoneNumber = 123456789,CategoryId=1},
+               new Contact{Name="Adam", Surname="Nowak", Email="Adam.Nowak@gmail.com", PhoneNumber = 123456789,CategoryId=2},
+               new Contact{Name="Anna", Surname="Kowalska", Email="Anna.Kowalska@gmail.com",PhoneNumber = 123456789,CategoryId=3},
             };
 
             return contacts;
@@ -46,9 +46,9 @@ namespace RecruitmentTask.Data
         {
             var category = new Category[]
             {
-               new Category{CategoryId=1,Name="Służbowy"},    
-               new Category{CategoryId=2,Name="Prywatny"},
-               new Category{CategoryId=3,Name="Inny"}
+               new Category{Name="Służbowy"},    
+               new Category{Name="Prywatny"},
+               new Category{Name="Inny"}
             };
 
             return category;

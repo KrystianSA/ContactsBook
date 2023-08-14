@@ -21,7 +21,7 @@ builder.Services.AddDbContext<DataDbContext>(options =>
 builder.Services.AddControllers().AddFluentValidation();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataDbContext>();
-//builder.Services.AddScoped<DataProviders>();
+builder.Services.AddScoped<DataProviders>();
 builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<IAccountService,AccountService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
@@ -63,11 +63,11 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
-//using (var scope = app.Services.CreateScope())
-//{
-//    var seeder = scope.ServiceProvider.GetRequiredService<DataProviders>();
-//    seeder.AddData();
-//}
+using (var scope = app.Services.CreateScope())
+{
+    var seeder = scope.ServiceProvider.GetRequiredService<DataProviders>();
+    seeder.AddData();
+}
 
 app.UseSwagger();
 

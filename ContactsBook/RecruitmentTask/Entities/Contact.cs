@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RecruitmentTask.Entities
 {
@@ -21,6 +22,8 @@ namespace RecruitmentTask.Entities
         
         [Required]
         [Range(1, 3, ErrorMessage = "CategoryId musi być wartością między 1 a 3.")]
-        public Category CategoryId { get; set; }
+        [ForeignKey("Category")]
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
     }
 }
