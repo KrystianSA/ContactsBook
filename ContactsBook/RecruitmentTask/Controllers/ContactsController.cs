@@ -13,8 +13,7 @@ namespace RecruitmentTask.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [EnableCors("AllowOrigin")]
-    [Authorize]
+    //[Authorize]
     public class ContactsController : ControllerBase
     {
         private readonly IContactService _contactsService;

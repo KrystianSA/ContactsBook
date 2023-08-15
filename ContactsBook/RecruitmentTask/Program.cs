@@ -2,7 +2,6 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using RecruitmentTask;
 using RecruitmentTask.Data;
@@ -13,14 +12,15 @@ using RecruitmentTask.Services;
 using System.Text;
 using WebApp.Models.Validators;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<DataDbContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString")));
+var connectionString = builder.Configuration["ConnectionString:DefaultConnection"];
+builder.Services.AddDbContext<DataDbContext>(options=>
+        options.UseSqlServer(connectionString));
 
 builder.Services.AddControllers().AddFluentValidation();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<DataDbContext>();
 builder.Services.AddScoped<DataProviders>();
 builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<IAccountService,AccountService>();
