@@ -1,11 +1,12 @@
-﻿using RecruitmentTask.Entities;
+﻿using ContactsBook.Models;
+using RecruitmentTask.Entities;
 using RecruitmentTask.Models;
 
 namespace RecruitmentTask.Services
 {
     public interface IContactService
     {
-        IEnumerable<Contact> GetAll();
+        IEnumerable<ContactDto> GetAll();
         Contact GetById(int id);
         bool Remove(int id);
         Contact Add(Contact user);

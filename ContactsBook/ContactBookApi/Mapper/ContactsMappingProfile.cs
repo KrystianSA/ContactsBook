@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using ContactsBook.Models;
 using RecruitmentTask.Entities;
-using RecruitmentTask.Models;
 
 namespace RecruitmentTask.Mapper
 {
@@ -8,6 +8,8 @@ namespace RecruitmentTask.Mapper
     {
         public ContactsMappingProfile()
         {
+            CreateMap<Contact, ContactDto>()
+                .ForMember(dst=> dst.CategoryName,opt=>opt.MapFrom(src=>src.Category.Name));
         }
     }
 }

@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RecruitmentTask\ContactsBook.csproj" />
+    <ProjectReference Include="..\ContactBookApi\ContactsBook.csproj" />
   </ItemGroup>
 
 </Project>

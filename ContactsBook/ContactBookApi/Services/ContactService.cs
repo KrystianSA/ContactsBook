@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using ContactsBook.Models;
+using Microsoft.EntityFrameworkCore;
 using RecruitmentTask.Data;
 using RecruitmentTask.Entities;
 
@@ -15,9 +17,11 @@ namespace RecruitmentTask.Services
             _mapper = mapper;
         }
 
-        public IEnumerable<Contact> GetAll()
+        public IEnumerable<ContactDto> GetAll()
         {
-            return _dbContext.Contacts.ToList();
+            var contacts = _dbContext.Contacts.Include(x=>x.Category).ToList();
+            var contactDtos = _mapper.Map<IEnumerable<ContactDto>>(contacts);
+            return contactDtos;
         }
 
         public Contact GetById(int id)

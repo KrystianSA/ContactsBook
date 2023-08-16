@@ -19,13 +19,14 @@ var connectionString = builder.Configuration["ConnectionString:DefaultConnection
 builder.Services.AddDbContext<DataDbContext>(options=>
         options.UseSqlServer(connectionString));
 
-builder.Services.AddControllers().AddFluentValidation();
+builder.Services.AddAutoMapper(typeof(ContactsMappingProfile));
+builder.Services.AddControllers();
+builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<DataProviders>();
 builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<IAccountService,AccountService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
-builder.Services.AddAutoMapper(typeof(ContactsMappingProfile).Assembly);
 builder.Services.AddScoped<IValidator<RegisterUser>, RegisterUserValidator>();
 builder.Services.AddCors(options =>
 {

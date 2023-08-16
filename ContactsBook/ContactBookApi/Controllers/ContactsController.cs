@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace RecruitmentTask.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     //[Authorize]
     public class ContactsController : ControllerBase
