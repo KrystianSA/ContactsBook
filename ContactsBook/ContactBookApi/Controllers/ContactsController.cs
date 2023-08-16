@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using ContactsBook.Models;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -17,12 +19,10 @@ namespace RecruitmentTask.Controllers
     public class ContactsController : ControllerBase
     {
         private readonly IContactService _contactsService;
-        private readonly DataDbContext _dbContext;
 
-        public ContactsController(IContactService contactsService, DataDbContext dbContext)
+        public ContactsController(IContactService contactsService)
         {
             _contactsService = contactsService;
-            _dbContext = dbContext;
         }
 
         [HttpGet]
@@ -60,11 +60,11 @@ namespace RecruitmentTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddContact([FromBody] Contact contact) 
+        public ActionResult AddContact([FromBody] CreateContactDto createContactDto) 
         {
             try
             {
-                var newUser = _contactsService.Add(contact);
+                var newUser = _contactsService.Add(createContactDto);
                 return Ok();
             }
             catch (Exception ex)

@@ -2,7 +2,7 @@
 
 namespace ContactsBook.Models
 {
-    public class ContactDto
+    public class GetContactsDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

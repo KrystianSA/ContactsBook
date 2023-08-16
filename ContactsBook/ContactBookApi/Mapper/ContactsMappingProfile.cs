@@ -8,8 +8,10 @@ namespace RecruitmentTask.Mapper
     {
         public ContactsMappingProfile()
         {
-            CreateMap<Contact, ContactDto>()
+            CreateMap<Contact, GetContactsDto>()
                 .ForMember(dst=> dst.CategoryName,opt=>opt.MapFrom(src=>src.Category.Name));
+
+            CreateMap<Contact, CreateContactDto>();
         }
     }
 }

@@ -6,10 +6,10 @@ namespace RecruitmentTask.Services
 {
     public interface IContactService
     {
-        IEnumerable<ContactDto> GetAll();
+        IEnumerable<GetContactsDto> GetAll();
         Contact GetById(int id);
         bool Remove(int id);
-        Contact Add(Contact user);
+        void Create(CreateContactDto createContactDto);
         bool Update(Contact user, int id);
     }
 }
