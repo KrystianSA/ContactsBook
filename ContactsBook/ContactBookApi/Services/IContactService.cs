@@ -9,7 +9,7 @@ namespace RecruitmentTask.Services
         IEnumerable<GetContactsDto> GetAll();
         Contact GetById(int id);
         bool Remove(int id);
-        void Create(CreateContactDto createContactDto);
+        void Add(CreateContactDto createContactDto);
         bool Update(Contact user, int id);
     }
 }

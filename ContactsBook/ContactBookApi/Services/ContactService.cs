@@ -47,7 +47,7 @@ namespace RecruitmentTask.Services
             return true;
         }
 
-        public void Create(CreateContactDto createContactDto)
+        public void Add(CreateContactDto createContactDto)
         {
 
             var existingContact = _dbContext.Contacts.SingleOrDefault(x => x.Email == createContactDto.Email);

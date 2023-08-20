@@ -1,3 +1,5 @@
+using ContactsBook.Models;
+using ContactsBook.Models.Validators;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
@@ -28,6 +30,7 @@ builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<IAccountService,AccountService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<IValidator<RegisterUser>, RegisterUserValidator>();
+builder.Services.AddScoped<IValidator<CreateContactDto>, CreateContactDtoValidator>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: "AllowOrigin", builder =>

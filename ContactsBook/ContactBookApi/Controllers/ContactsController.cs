@@ -38,8 +38,8 @@ namespace RecruitmentTask.Controllers
         public ActionResult GetContactById([FromRoute] int id)
         {
             var contact = _contactsService.GetById(id);
-            if(contact == null) 
-            { 
+            if (contact == null)
+            {
                 return NotFound();
             }
             return Ok();
@@ -60,11 +60,11 @@ namespace RecruitmentTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddContact([FromBody] CreateContactDto createContactDto) 
+        public ActionResult AddContact([FromBody] CreateContactDto createContactDto)
         {
             try
             {
-                var newUser = _contactsService.Add(createContactDto);
+                _contactsService.Add(createContactDto);
                 return Ok();
             }
             catch (Exception ex)
