@@ -14,17 +14,19 @@ namespace RecruitmentTask.Services
         private readonly DataDbContext _dbContext;
         private readonly IMapper _mapper;
         private readonly IValidator<CreateContactDto> _createContacValidator;
+        private readonly IValidator<UpdateContactDto> _updateContactValidator;
 
-        public ContactService(DataDbContext dbContext,IMapper mapper, IValidator<CreateContactDto> createContacValidator)
+        public ContactService(DataDbContext dbContext, IMapper mapper, IValidator<CreateContactDto> createContacValidator, IValidator<UpdateContactDto> updateContactValidator)
         {
             _dbContext = dbContext;
             _mapper = mapper;
             _createContacValidator = createContacValidator;
+            _updateContactValidator = updateContactValidator;
         }
 
         public IEnumerable<GetContactsDto> GetAll()
         {
-            var contacts = _dbContext.Contacts.Include(x=>x.Category).ToList();
+            var contacts = _dbContext.Contacts.Include(x => x.Category).ToList();
             var contactDtos = _mapper.Map<IEnumerable<GetContactsDto>>(contacts);
             return contactDtos;
         }
@@ -48,10 +50,10 @@ namespace RecruitmentTask.Services
         }
 
         public void Add(CreateContactDto createContactDto)
-        {            
+        {
             var validateContactToCreate = _createContacValidator.Validate(createContactDto);
 
-            if(!validateContactToCreate.IsValid) 
+            if (!validateContactToCreate.IsValid)
             {
                 throw new Exception("Problem with data, which try add to database");
             }
@@ -61,7 +63,7 @@ namespace RecruitmentTask.Services
             _dbContext.SaveChanges();
         }
 
-        public bool Update(Contact contact, int id)
+        public bool Update(UpdateContactDto updateContactDto, int id)
         {
             var contactToUpdate = _dbContext.Contacts.SingleOrDefault(x => x.Id == id);
 
@@ -70,11 +72,15 @@ namespace RecruitmentTask.Services
                 return false;
             }
 
-            contactToUpdate.Name = contact.Name;
-            contactToUpdate.Surname = contact.Surname;
-            contactToUpdate.Email = contact.Email;
-            contactToUpdate.PhoneNumber = contact.PhoneNumber;
-            contactToUpdate.CategoryId = contact.CategoryId;
+            if (!_updateContactValidator.Validate(updateContactDto).IsValid)
+            {
+                return false;
+            }
+            contactToUpdate.Name = updateContactDto.Name;
+            contactToUpdate.Surname = updateContactDto.Surname;
+            contactToUpdate.Email = updateContactDto.Email;
+            contactToUpdate.PhoneNumber = updateContactDto.PhoneNumber;
+            contactToUpdate.CategoryId = updateContactDto.CategoryId;
 
             _dbContext.SaveChanges();
 

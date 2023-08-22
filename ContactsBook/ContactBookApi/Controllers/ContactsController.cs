@@ -75,14 +75,14 @@ namespace RecruitmentTask.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public ActionResult UpdateContact([FromBody] Contact user, [FromRoute] int id)
+        public ActionResult UpdateContact([FromBody] UpdateContactDto updateContactDto, [FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var isUpdated = _contactsService.Update(user, id);
+            var isUpdated = _contactsService.Update(updateContactDto, id);
             return Ok();
         }
     }

@@ -10,6 +10,6 @@ namespace RecruitmentTask.Services
         Contact GetById(int id);
         bool Remove(int id);
         void Add(CreateContactDto createContactDto);
-        bool Update(Contact user, int id);
+        bool Update(UpdateContactDto updateContactDto, int id);
     }
 }

@@ -36,7 +36,7 @@ namespace ContactsBook.IntegrationTests
         [Fact]
         public async Task GetContacts_WithCorrectQuery_ReturnStatusOk()
         {
-            var result = await _client.GetAsync("/api/contacts");
+            var result = await _client.GetAsync("/contacts");
             result.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
 
@@ -45,14 +45,9 @@ namespace ContactsBook.IntegrationTests
         {
             var contact = new Contact()
             {
-                Id = 2,
-                Name = "Krystian",
-                Surname = "Sąsiadek",
-                Email = "test@test.com",
-                PhoneNumber = 1232323,
-                CategoryId = 1
+                Id = 2
             };
-            var result = await _client.GetAsync("/api/contacts/"+contact.Id);
+            var result = await _client.GetAsync("/contacts/"+contact.Id);
             result.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
 
@@ -62,13 +57,8 @@ namespace ContactsBook.IntegrationTests
             var contact = new Contact()
             {
                 Id = 2,
-                Name = "Krystian",
-                Surname = "Sąsiadek",
-                Email = "test@test.com",
-                PhoneNumber = 1232323,
-                CategoryId = 1
             };
-            var result = await _client.DeleteAsync("/api/contacts/1");
+            var result = await _client.DeleteAsync("/contacts"+contact.Id);
             result.StatusCode.Should().Be(System.Net.HttpStatusCode.NoContent);
         }
 
@@ -84,7 +74,7 @@ namespace ContactsBook.IntegrationTests
                 CategoryId = 1
             };
             var httpContent = contact.ToJsonHttpContent();
-            var result = await _client.PostAsync("/api/contacts/", httpContent);
+            var result = await _client.PostAsync("/contacts/", httpContent);
             result.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
 
@@ -103,7 +93,7 @@ namespace ContactsBook.IntegrationTests
 
             contact.Name = "Paweł";
             var httpContent = contact.ToJsonHttpContent();
-            var result = await _client.PutAsync("api/contacts/2",httpContent);
+            var result = await _client.PutAsync("/contacts/2",httpContent);
             result.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
     }
