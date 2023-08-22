@@ -1,13 +1,7 @@
-﻿using RecruitmentTask.Entities;
-
-namespace ContactsBook.Models
+﻿namespace ContactsBook.Models
 {
-    public class CreateOrUpdateContactDto
-    { 
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string Email { get; set; }
-        public double PhoneNumber { get; set; }
+    public class CreateOrUpdateContactDto : ContactBaseDto
+    {
         public int CategoryId { get; set; }
     }
 }

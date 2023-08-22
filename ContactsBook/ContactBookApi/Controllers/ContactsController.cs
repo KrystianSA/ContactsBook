@@ -75,7 +75,7 @@ namespace RecruitmentTask.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public ActionResult UpdateContact([FromBody] UpdateContactDto updateContactDto, [FromRoute] int id)
+        public ActionResult UpdateContact([FromBody] CreateOrUpdateContactDto updateContactDto, [FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {

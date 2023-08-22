@@ -26,11 +26,12 @@ builder.Services.AddControllers();
 builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<DataProviders>();
-builder.Services.AddScoped<IContactService, ContactService>();
+builder.Services.AddScoped<IContactService,ContactService>();
 builder.Services.AddScoped<IAccountService,AccountService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<IValidator<RegisterUser>, RegisterUserValidator>();
-builder.Services.AddScoped<IValidator<CreateOrUpdateContactDto>, ValidationBaseForUpdateAndCreateContact<CreateOrUpdateContactDto>>();
+builder.Services.AddScoped<IValidator<CreateOrUpdateContactDto>,CreateContactDtoValidator>();
+builder.Services.AddScoped<IValidator<CreateOrUpdateContactDto>, UpdateContactDtoValidator>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: "AllowOrigin", builder =>

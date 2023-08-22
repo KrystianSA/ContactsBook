@@ -14,7 +14,7 @@ namespace ContactsBook.Models.Validators
             _dbContext = dbContext;
         }
 
-        protected override void ValidateRules() 
+        protected  void ValidateRules() 
         {
             RuleFor(email => email.Email)
                 .Must(IsEmailExist).WithMessage("Email already exist");

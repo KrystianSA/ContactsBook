@@ -1,11 +1,10 @@
 ﻿using FluentValidation;
-using RecruitmentTask.Data;
 
 namespace ContactsBook.Models.Validators
 {
-    public abstract class ValidationBaseForContactService<T> : AbstractValidator<T> where T : CreateOrUpdateContactDto
+    public abstract class ValidationBaseForUpdateAndCreateContact<T> : AbstractValidator<T> where T : CreateOrUpdateContactDto
     {
-        public ValidationBaseForContactService()
+        public ValidationBaseForUpdateAndCreateContact()
         {
             ValidateRules();
         }
