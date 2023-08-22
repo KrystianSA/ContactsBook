@@ -48,14 +48,7 @@ namespace RecruitmentTask.Services
         }
 
         public void Add(CreateContactDto createContactDto)
-        {
-
-            var existingContact = _dbContext.Contacts.SingleOrDefault(x => x.Email == createContactDto.Email);
-            if (existingContact != null)
-            {
-                throw new Exception("Email already exists");
-            }
-            
+        {            
             var validateContactToCreate = _createContacValidator.Validate(createContactDto);
 
             if(!validateContactToCreate.IsValid) 
