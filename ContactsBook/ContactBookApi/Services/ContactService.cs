@@ -13,10 +13,10 @@ namespace RecruitmentTask.Services
     {
         private readonly DataDbContext _dbContext;
         private readonly IMapper _mapper;
-        private readonly IValidator<CreateContactDto> _createContacValidator;
-        private readonly IValidator<UpdateContactDto> _updateContactValidator;
+        private readonly IValidator<CreateOrUpdateContactDto> _createContacValidator;
+        private readonly IValidator<CreateOrUpdateContactDto> _updateContactValidator;
 
-        public ContactService(DataDbContext dbContext, IMapper mapper, IValidator<CreateContactDto> createContacValidator, IValidator<UpdateContactDto> updateContactValidator)
+        public ContactService(DataDbContext dbContext, IMapper mapper, IValidator<CreateOrUpdateContactDto> createContacValidator, IValidator<CreateOrUpdateContactDto> updateContactValidator)
         {
             _dbContext = dbContext;
             _mapper = mapper;
@@ -49,7 +49,7 @@ namespace RecruitmentTask.Services
             return true;
         }
 
-        public void Add(CreateContactDto createContactDto)
+        public void Add(CreateOrUpdateContactDto createContactDto)
         {
             var validateContactToCreate = _createContacValidator.Validate(createContactDto);
 
@@ -63,7 +63,7 @@ namespace RecruitmentTask.Services
             _dbContext.SaveChanges();
         }
 
-        public bool Update(UpdateContactDto updateContactDto, int id)
+        public bool Update(CreateOrUpdateContactDto updateContactDto, int id)
         {
             var contactToUpdate = _dbContext.Contacts.SingleOrDefault(x => x.Id == id);
 

@@ -60,7 +60,7 @@ namespace RecruitmentTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddContact([FromBody] CreateContactDto createContactDto)
+        public ActionResult AddContact([FromBody] CreateOrUpdateContactDto createContactDto)
         {
             try
             {

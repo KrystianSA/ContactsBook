@@ -11,7 +11,7 @@ namespace RecruitmentTask.Mapper
             CreateMap<Contact, GetContactsDto>()
                 .ForMember(dst => dst.CategoryName, opt => opt.MapFrom(src => src.Category.Name));
 
-            CreateMap<CreateContactDto, Contact>();
+            CreateMap<CreateOrUpdateContactDto, Contact>();
         }
     }
 }

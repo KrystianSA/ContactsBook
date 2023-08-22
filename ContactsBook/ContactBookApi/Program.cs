@@ -30,8 +30,7 @@ builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<IAccountService,AccountService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<IValidator<RegisterUser>, RegisterUserValidator>();
-builder.Services.AddScoped<IValidator<CreateContactDto>, CreateContactDtoValidator>();
-builder.Services.AddScoped<IValidator<UpdateContactDto>, UpdateContactDtoValidator>();
+builder.Services.AddScoped<IValidator<CreateOrUpdateContactDto>, ValidationBaseForUpdateAndCreateContact<CreateOrUpdateContactDto>>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: "AllowOrigin", builder =>

@@ -2,7 +2,7 @@
 
 namespace ContactsBook.Models
 {
-    public class CreateContactDto
+    public class CreateOrUpdateContactDto
     { 
         public string Name { get; set; }
         public string Surname { get; set; }
