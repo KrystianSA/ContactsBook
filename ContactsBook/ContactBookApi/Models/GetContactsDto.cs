@@ -1,4 +1,5 @@
 ﻿using RecruitmentTask.Entities;
+using System.Text.Json.Serialization;
 
 namespace ContactsBook.Models
 {

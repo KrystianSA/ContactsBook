@@ -31,10 +31,11 @@ namespace RecruitmentTask.Services
             return contactDtos;
         }
 
-        public Contact GetById(int id)
+        public GetContactsDto GetById(int id)
         {
-            var contact = _dbContext.Contacts.SingleOrDefault(x => x.Id == id);
-            return contact;
+            var contact = _dbContext.Contacts.Include(x=>x.Category).SingleOrDefault(x => x.Id == id);
+            var contactDto=_mapper.Map<GetContactsDto>(contact);
+            return contactDto;
         }
 
         public bool Remove(int id)

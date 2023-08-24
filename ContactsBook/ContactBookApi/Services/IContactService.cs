@@ -7,7 +7,7 @@ namespace RecruitmentTask.Services
     public interface IContactService
     {
         IEnumerable<GetContactsDto> GetAll();
-        Contact GetById(int id);
+        GetContactsDto GetById(int id);
         bool Remove(int id);
         void Add(CreateOrUpdateContactDto createContactDto);
         bool Update(CreateOrUpdateContactDto updateContactDto, int id);
