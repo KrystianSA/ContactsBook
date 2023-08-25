@@ -1,4 +1,5 @@
 ﻿using AutoFixture;
+using AutoMapper;
 using ContactsBook.Models;
 using FluentAssertions;
 using Microsoft.AspNetCore.Authorization.Policy;
@@ -38,8 +39,6 @@ namespace ContactsBook.IntegrationTests
             _client = _factory.CreateClient();
         }
 
-        //Spróbuj użyć MOQ to testów, szczególnie dla wyszukiwania elementów których nie ma
-
         [Fact]
         public async Task GetContacts_WithCorrectQuery_ReturnStatusOk()
         {
@@ -52,6 +51,10 @@ namespace ContactsBook.IntegrationTests
         [Fact]
         public async Task GetContactById_ForExistId_ReturnStatusOk()
         {
+            var contact = _fixture.Build<GetContactsDto>()
+                                 .With(id => id.Id, 1)
+                                 .Create();
+            _mockContactService.Setup(service=>service.GetById(1)).Returns(contact);
             var result = await _client.GetAsync("/contacts/1");
             result.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
@@ -59,48 +62,48 @@ namespace ContactsBook.IntegrationTests
         [Fact]
         public async Task GetContactById_ForNonExistId_ReturnStatusNotFound()
         {
-            var result = await _client.GetAsync($"/contacts/");
+            var contact = _fixture.Build<GetContactsDto>()
+                                 .With(id => id.Id, 1)
+                                 .Create();
+            _mockContactService.Setup(service => service.GetById(1)).Returns(contact);
+            var result = await _client.GetAsync("/contacts/3");
             result.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound);
         }
 
         [Fact]
         public async Task DeleteContact_ForExistId_ReturnNonContent()
         {
-            var result = await _client.DeleteAsync("/contacts/2");
+            var contact = _fixture.Build<GetContactsDto>()
+                                 .With(id => id.Id, 1)
+                                 .Create();
+            _mockContactService.Setup(service => service.Remove(1)).Returns(true);
+            var result = await _client.DeleteAsync("/contacts/1");
             result.StatusCode.Should().Be(System.Net.HttpStatusCode.NoContent);
         }
 
         [Fact]
         public async Task AddContact_ForValidModel_ReturnStatusOk()
         {
-            var contact = new Contact()
-            {
-                Name = "Krystian",
-                Surname = "Sąsiadek",
-                Email = "test1@test.com",
-                PhoneNumber = 1232323,
-                CategoryId = 1
-            };
+            var contact = _fixture.Build<CreateOrUpdateContactDto>()
+                                  .With(email => email.Email, "krystian@gmail.com")
+                                  .With(phoneNumber => phoneNumber.PhoneNumber, 123456789)
+                                  .With(categoryId => categoryId.CategoryId, 1)
+                                  .Create();
+            _mockContactService.Setup(service => service.Add(contact));
             var httpContent = contact.ToJsonHttpContent();
-            var result = await _client.PostAsync("/contacts/", httpContent);
+            var result = await _client.PostAsync("/contacts", httpContent);
             result.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }
 
         [Fact]
         public async Task UpdateContact_ForValidModel_ReturnStatusOk()
         {
-            var contact = new Contact()
-            {
-                Id = 2,
-                Name = "Krystian",
-                Surname = "Sąsiadek",
-                Email = "test1@test.com",
-                PhoneNumber = 1232323,
-                CategoryId = 1
-            };
-
-            contact.Name = "Paweł";
-            var httpContent = contact.ToJsonHttpContent();
+            var newContact = _fixture.Build<CreateOrUpdateContactDto>()
+                                .With(email => email.Email, "krystian@gmail.com")
+                                .With(phoneNumber => phoneNumber.PhoneNumber, 123456789)
+                                .With(categoryId => categoryId.CategoryId, 1)
+                                .Create();
+            var httpContent = newContact.ToJsonHttpContent();
             var result = await _client.PutAsync("/contacts/2", httpContent);
             result.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
         }

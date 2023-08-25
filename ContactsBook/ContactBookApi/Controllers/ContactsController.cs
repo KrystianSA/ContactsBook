@@ -51,12 +51,12 @@ namespace RecruitmentTask.Controllers
         {
             var isDeleted = _contactsService.Remove(id);
 
-            if (isDeleted)
+            if (!isDeleted)
             {
-                return NoContent();
+                return NotFound();
             }
 
-            return NotFound();
+            return NoContent();
         }
 
         [HttpPost]
