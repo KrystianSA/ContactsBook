@@ -92,5 +92,3 @@ app.UseAuthorization();
 app.UseCors("AllowOrigin");
 
 app.Run();
-
-public partial class Program { }
