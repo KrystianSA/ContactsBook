@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿using ContactsBook.Models.Validators.Extensions;
+using FluentValidation;
+using System.Text.RegularExpressions;
 
 namespace ContactsBook.Models.Validators
 {
@@ -20,7 +22,8 @@ namespace ContactsBook.Models.Validators
                 .EmailAddress();
 
             RuleFor(phoneNumber => phoneNumber.PhoneNumber)
-                .GreaterThanOrEqualTo(9);
+                .Must(numberToString=>numberToString.ToString().IsNumberCorrect())
+                .WithMessage("Invalid phone phoneNumber");
 
             RuleFor(categoryId => categoryId.CategoryId)
                 .InclusiveBetween(1, 3)
